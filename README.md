@@ -57,10 +57,12 @@ This responsive and interactive application simulates a full-stack experience wi
 
 
 2. **Create a .env.local file in the root directory and add:**
-MONGODB_URI=mongodb+srv://root:root@ite5315-om.lwf6c.mongodb.net/?retryWrites=true&w=majority&appName=ITE5315-OM
-NEXTAUTH_SECRET=your_generated_secret_key
+    ```bash
+    MONGODB_URI=mongodb+srv://root:root@ite5315-om.lwf6c.mongodb.net/?retryWrites=true&w=majority&appName=ITE5315-OMNEXTAUTH_SECRET=your_generated_secret_key
+
 
 Run the development server:
 
 3, **For run**
+---
 npm run dev
