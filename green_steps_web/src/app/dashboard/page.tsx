@@ -316,7 +316,7 @@ import {
   FaUtensils
 } from 'react-icons/fa';
 
-const iconMap: Record<string, JSX.Element> = {
+const iconMap: Record<string, React.ReactElement> = {
   bicycle: <FaBicycle className="text-green-500 text-2xl" />,
   leaf: <FaLeaf className="text-green-500 text-2xl" />,
   tint: <FaTint className="text-blue-400 text-2xl" />,

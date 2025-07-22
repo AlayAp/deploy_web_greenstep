@@ -82,7 +82,7 @@ const ActivityLogger = () => {
         onClick={handleSave}
         className="bg-green-600 text-white px-4 py-2 rounded mt-2"
       >
-        Save Today's Activity
+        Save Today&apos;s Activity
       </button>
       {message && <p className="mt-3 text-sm text-blue-600">{message}</p>}
     </div>

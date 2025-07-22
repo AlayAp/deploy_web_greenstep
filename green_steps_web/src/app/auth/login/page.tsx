@@ -71,7 +71,7 @@ export default function LoginPage() {
           Login
         </button>
         <p style={{ textAlign: "center", fontSize: 14 }}>
-          Don't have an account? <a href="/auth/register" style={{ color: "#388e3c" }}>Register</a>
+          Don&apos;t have an account? <a href="/auth/register" style={{ color: "#388e3c" }}>Register</a>
         </p>
       </form>
     </div>

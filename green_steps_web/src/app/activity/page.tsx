@@ -65,7 +65,7 @@ export default function ActivityLoggerPage() {
         onClick={handleSave}
         className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
       >
-        Save Today's Activity
+        Save Today&apos;s Activity
       </button>
 
       {message && <p className="mt-3 text-sm text-gray-700">{message}</p>}
