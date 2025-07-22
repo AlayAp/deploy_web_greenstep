@@ -9,6 +9,10 @@ const nextConfig = {
   images: {
     domains: ['images.unsplash.com'],
   },
+   compilerOptions: {
+    // ... your other options ...
+    "noEmitOnError": false
+  }
 };
 
 export default nextConfig;
