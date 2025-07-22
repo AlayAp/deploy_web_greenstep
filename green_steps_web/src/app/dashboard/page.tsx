@@ -286,13 +286,12 @@
 //     </div>
 //   );
 // }
-
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { Bar } from 'react-chartjs-2';
 import {
   Chart,
   BarElement,
@@ -302,9 +301,6 @@ import {
   Legend
 } from 'chart.js';
 import { useSession } from 'next-auth/react';
-
-// Chart.js Register
-Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 // Icons
 import {
@@ -316,16 +312,25 @@ import {
   FaUtensils
 } from 'react-icons/fa';
 
-const iconMap: Record<string, React.ReactElement> = {
+// Register Chart.js components once
+Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+
+// Dynamically import the Bar chart so it only renders in the browser
+const Bar = dynamic(
+  () => import('react-chartjs-2').then((mod) => mod.Bar),
+  { ssr: false }
+);
+
+const iconMap: Record<string, React.ReactNode> = {
   bicycle: <FaBicycle className="text-green-500 text-2xl" />,
-  leaf: <FaLeaf className="text-green-500 text-2xl" />,
-  tint: <FaTint className="text-blue-400 text-2xl" />,
-  solar: <FaSolarPanel className="text-yellow-400 text-2xl" />,
-  bus: <FaBus className="text-blue-500 text-xl" />,
-  utensils: <FaUtensils className="text-green-500 text-xl" />,
+  leaf:    <FaLeaf    className="text-green-500 text-2xl" />,
+  tint:    <FaTint    className="text-blue-400 text-2xl" />,
+  solar:   <FaSolarPanel className="text-yellow-400 text-2xl" />,
+  bus:     <FaBus     className="text-blue-500 text-xl" />,
+  utensils:<FaUtensils className="text-green-500 text-xl" />,
 };
 
-const challengeTabs = ['All', 'Ongoing', 'Completed'];
+const challengeTabs = ['All', 'Ongoing', 'Completed'] as const;
 
 type UserData = {
   name: string;
@@ -349,16 +354,13 @@ type Challenge = {
   daysLeft?: number;
 };
 
-type ComparisonUser = {
-  name: string;
-  totalCO2: number;
-};
+type ComparisonUser = { name: string; totalCO2: number };
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();
   const [user, setUser] = useState<UserData | null>(null);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
-  const [selectedTab, setSelectedTab] = useState('All');
+  const [selectedTab, setSelectedTab] = useState<typeof challengeTabs[number]>('All');
   const [comparisonUsers, setComparisonUsers] = useState<ComparisonUser[]>([]);
 
   useEffect(() => {
@@ -371,30 +373,32 @@ export default function DashboardPage() {
       .then((res) => res.json())
       .then((data) => setChallenges(Array.isArray(data) ? data : []));
 
-    // Example comparison users data
+    // Demo community data
     setComparisonUsers([
-      { name: 'Alice', totalCO2: 120 },
-      { name: 'Bob', totalCO2: 150 },
+      { name: 'Alice',   totalCO2: 120 },
+      { name: 'Bob',     totalCO2: 150 },
       { name: 'Charlie', totalCO2: 100 },
     ]);
   }, [status, session]);
 
+  if (!user && status !== 'authenticated') {
+    return <div className="text-center text-gray-400 p-10">Loading...</div>;
+  }
+
+  // Filter your own challenges
   const filteredChallenges =
     selectedTab === 'All'
       ? challenges
       : challenges.filter((c) => c.status === selectedTab);
 
-  // Build chart labels including user + community
+  // Build combined labels
   const labels = comparisonUsers.map((u) => u.name);
-  if (user && !labels.includes(user.name)) {
-    labels.push(user.name);
-  }
+  if (user && !labels.includes(user.name)) labels.push(user.name);
 
-  // Data aligned with labels
-  const dataValues = labels.map((name) =>
-    name === user?.name
+  const dataValues = labels.map((n) =>
+    n === user?.name
       ? user.totalCO2
-      : comparisonUsers.find((u) => u.name === name)?.totalCO2 ?? 0
+      : comparisonUsers.find((u) => u.name === n)?.totalCO2 ?? 0
   );
 
   const barData = {
@@ -403,11 +407,11 @@ export default function DashboardPage() {
       {
         label: 'Total CO₂ Saved (kg)',
         data: dataValues,
-        backgroundColor: labels.map((name) =>
-          name === user?.name ? 'rgba(34,197,94,0.9)' : 'rgba(107,114,128,0.7)'
+        backgroundColor: labels.map((n) =>
+          n === user?.name ? 'rgba(34,197,94,0.9)' : 'rgba(107,114,128,0.7)'
         ),
-        borderColor: labels.map((name) =>
-          name === user?.name ? 'rgba(34,197,94,1)' : 'rgba(107,114,128,1)'
+        borderColor: labels.map((n) =>
+          n === user?.name ? 'rgba(34,197,94,1)' : 'rgba(107,114,128,1)'
         ),
         borderWidth: 1,
       },
@@ -418,27 +422,18 @@ export default function DashboardPage() {
     plugins: { legend: { display: false } },
     responsive: true,
     scales: {
-      y: {
-        beginAtZero: true,
-        title: { display: true, text: 'Kg CO₂' },
-      },
-      x: {
-        title: { display: true, text: 'Users' },
-      },
+      y: { beginAtZero: true, title: { display: true, text: 'Kg CO₂' } },
+      x: { title: { display: true, text: 'Users' } },
     },
   };
-
-  if (!user || (status === 'loading' && !session)) {
-    return <div className="text-center text-gray-400 p-10">Loading...</div>;
-  }
 
   return (
     <div className="bg-[#f6faf7] min-h-screen">
       <div className="max-w-4xl mx-auto p-4 sm:p-6">
 
-        {/* Comparison Chart (includes user) */}
+        {/* Comparison Chart */}
         <section className="mb-8">
-          <h3 className="text-xl font-semibold text-black mb-3">
+          <h3 className="text-xl font-semibold mb-3">
             Your CO₂ Saved Compared to Others
           </h3>
           <Bar data={barData} options={barOptions} />
@@ -446,16 +441,16 @@ export default function DashboardPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card title="Current Streak" value={`${user.currentStreak} Days`} sub={`Best: ${user.bestStreak} Days`} />
-          <Card title="Total CO₂ Saved" value={`${user.totalCO2} kg`} sub="This month" />
-          <Card title="Daily Average" value={`${user.dailyAverage} kg`} sub={`${user.dailyChange >= 0 ? '+' : ''}${user.dailyChange}% vs last week`} />
+          <Card title="Current Streak" value={`${user!.currentStreak} Days`} sub={`Best: ${user!.bestStreak} Days`} />
+          <Card title="Total CO₂ Saved" value={`${user!.totalCO2} kg`} sub="This month" />
+          <Card title="Daily Average" value={`${user!.dailyAverage} kg`} sub={`${user!.dailyChange >= 0 ? '+' : ''}${user!.dailyChange}% vs last week`} />
         </div>
 
         {/* Achievements */}
         <Section title="Your Achievements">
           <div className="flex flex-wrap gap-4">
-            {user.achievements.map((a, i) => (
-              <div key={i} className="bg-white rounded-lg shadow flex flex-col items-center px-4 py-3 w-[120px]">
+            {user!.achievements.map((a, i) => (
+              <div key={`${a.label}-${i}`} className="bg-white rounded-lg shadow flex flex-col items-center px-4 py-3 w-[120px]">
                 {iconMap[a.icon]}
                 <div className="text-xs text-gray-700 mt-2 text-center">{a.label}</div>
               </div>
@@ -481,7 +476,6 @@ export default function DashboardPage() {
               </button>
             ))}
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredChallenges.map((c) => (
               <div key={c._id} className="bg-white rounded-lg shadow p-4">
@@ -526,15 +520,17 @@ export default function DashboardPage() {
           </div>
         </Section>
 
-        {/* Explore Footer */}
+        {/* Footer */}
         <div className="flex flex-col sm:flex-row gap-4 mt-6 mb-4">
-          <button onClick={() => alert("Your data has been reset!")} className="w-full sm:w-1/2 bg-gray-100 text-gray-700 py-2 rounded font-semibold hover:bg-gray-200">
+          <button
+            onClick={() => alert("Your data has been reset!")}
+            className="w-full sm:w-1/2 bg-gray-100 text-gray-700 py-2 rounded font-semibold hover:bg-gray-200"
+          >
             Reset Data
           </button>
         </div>
-
         <footer className="text-xs text-gray-500 border-t pt-3 text-center sm:flex sm:justify-between">
-          <span>Total Challenges: {user.totalChallengesCompleted}</span>
+          <span>Total Challenges: {user!.totalChallengesCompleted}</span>
           <Link href="/challenge-feed" className="text-green-700 hover:underline">
             View All Challenges
           </Link>
