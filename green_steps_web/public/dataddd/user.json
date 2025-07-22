@@ -1,0 +1,109 @@
+[
+  {
+    "id": 1,
+    "name": "You",
+    "currentStreak": 12,
+    "bestStreak": 15,
+    "totalCO2": 156,
+    "dailyAverage": 5.2,
+    "dailyChange": -12,
+    "achievements": [
+      { "icon": "bicycle", "label": "Bike 5 Days" },
+      { "icon": "leaf", "label": "Meatless Week" }
+    ],
+    "totalChallengesCompleted": 12
+  },
+  {
+    "id": 2,
+    "name": "Alex",
+    "currentStreak": 8,
+    "bestStreak": 10,
+    "totalCO2": 120,
+    "dailyAverage": 4.8,
+    "dailyChange": -8,
+    "achievements": [
+      { "icon": "tint", "label": "Water Saver" }
+    ],
+    "totalChallengesCompleted": 9
+  },
+  {
+    "id": 3,
+    "name": "Jordan",
+    "currentStreak": 14,
+    "bestStreak": 18,
+    "totalCO2": 170,
+    "dailyAverage": 5.7,
+    "dailyChange": -10,
+    "achievements": [
+      { "icon": "solar", "label": "Solar Power" }
+    ],
+    "totalChallengesCompleted": 15
+  },
+  {
+    "id": 4,
+    "name": "Priya",
+    "currentStreak": 7,
+    "bestStreak": 11,
+    "totalCO2": 95,
+    "dailyAverage": 3.9,
+    "dailyChange": -5,
+    "achievements": [
+      { "icon": "leaf", "label": "Meatless Week" },
+      { "icon": "tint", "label": "Water Saver" }
+    ],
+    "totalChallengesCompleted": 8
+  },
+  {
+    "id": 5,
+    "name": "Miguel",
+    "currentStreak": 10,
+    "bestStreak": 13,
+    "totalCO2": 135,
+    "dailyAverage": 4.5,
+    "dailyChange": -7,
+    "achievements": [
+      { "icon": "bicycle", "label": "Bike 5 Days" }
+    ],
+    "totalChallengesCompleted": 10
+  },
+  {
+    "id": 6,
+    "name": "Emily",
+    "currentStreak": 6,
+    "bestStreak": 9,
+    "totalCO2": 88,
+    "dailyAverage": 3.5,
+    "dailyChange": -4,
+    "achievements": [
+      { "icon": "solar", "label": "Solar Power" }
+    ],
+    "totalChallengesCompleted": 7
+  },
+  {
+    "id": 7,
+    "name": "Chen",
+    "currentStreak": 16,
+    "bestStreak": 20,
+    "totalCO2": 180,
+    "dailyAverage": 6.0,
+    "dailyChange": -15,
+    "achievements": [
+      { "icon": "leaf", "label": "Meatless Week" },
+      { "icon": "bicycle", "label": "Bike 5 Days" }
+    ],
+    "totalChallengesCompleted": 16
+  },
+  {
+    "id": 8,
+    "name": "Fatima",
+    "currentStreak": 9,
+    "bestStreak": 12,
+    "totalCO2": 112,
+    "dailyAverage": 4.2,
+    "dailyChange": -6,
+    "achievements": [
+      { "icon": "tint", "label": "Water Saver" }
+    ],
+    "totalChallengesCompleted": 9
+  }
+]

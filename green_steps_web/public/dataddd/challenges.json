@@ -1,0 +1,70 @@
+[
+  {
+    "id": "1",
+    "title": "Cycle to Work",
+    "category": "travel",
+    "type": "active",
+    "description": "Cycle to your workplace for at least 5 days this week",
+    "daysLeft": 2,
+    "status": "Ongoing",
+    "progress": 3,
+    "total": 5
+  },
+  {
+    "id": "2",
+    "title": "Meatless Monday",
+    "category": "diet",
+    "type": "active",
+    "description": "Eat vegetarian meals every Monday this month",
+    "daysLeft": 3,
+    "status": "Ongoing",
+    "progress": 2,
+    "total": 4
+  },
+  {
+    "id": "3",
+    "title": "Energy Saver",
+    "category": "home",
+    "type": "active",
+    "description": "Reduce home electricity usage for a week",
+    "daysLeft": 0,
+    "status": "Completed",
+    "progress": 7,
+    "total": 7
+  },
+  {
+    "id": "4",
+    "title": "Water Warrior",
+    "category": "diet",
+    "type": "featured",
+    "description": "Reduce your water usage by 20% this week",
+    "daysLeft": 7
+  },
+  {
+    "id": "5",
+    "title": "Zero Waste Hero",
+    "category": "home",
+    "type": "featured",
+    "description": "No single-use plastics for 5 days",
+    "daysLeft": 3
+  },
+  {
+    "id": "6",
+    "title": "Green Thumb",
+    "category": "home",
+    "type": "featured",
+    "description": "Plant 2 new trees or plants this week",
+    "daysLeft": 5
+  },
+  {
+    "id": "7",
+    "title": "Walk More",
+    "category": "travel",
+    "type": "active",
+    "description": "Walk for at least 30 minutes every day",
+    "daysLeft": 0,
+    "status": "Completed",
+    "progress": 5,
+    "total": 5
+  }
+]

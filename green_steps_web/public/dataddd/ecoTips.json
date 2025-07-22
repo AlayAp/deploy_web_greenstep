@@ -1,0 +1,37 @@
+{
+  "Toronto": {
+    "tips": [
+      { "title": "Use LED bulbs at home" },
+      { "title": "Avoid peak-hour electricity use" },
+      { "title": "Recycle paper, plastics, and electronics properly" },
+      { "title": "Unplug idle electronics" }
+    ],
+    "facts": [
+      "Toronto aims to reduce GHG emissions by 65% by 2030.",
+      "Over 80% of residents have access to recycling programs."
+    ]
+  },
+  "Vancouver": {
+    "tips": [
+      { "title": "Cycle or walk for short commutes" },
+      { "title": "Collect rainwater for garden use" },
+      { "title": "Use transit powered by hydroelectricity" },
+      { "title": "Buy locally sourced food" }
+    ],
+    "facts": [
+      "Vancouver targets 100% renewable energy by 2050.",
+      "Has the lowest per capita emissions among Canadian cities."
+    ]
+  },
+  "Montreal": {
+    "tips": [
+      { "title": "Compost kitchen waste" },
+      { "title": "Use public transport instead of driving" },
+      { "title": "Install programmable thermostats" }
+    ],
+    "facts": [
+      "Montreal has over 300 km of bike paths.",
+      "The city is investing heavily in composting and recycling."
+    ]
+  }
+}
